@@ -49,6 +49,7 @@ public class Main {
 				latch.await();
 
 				// Print the count of each number
+				// flush() is an attempt to remove the blank line #2016 output
 				System.out.flush();
 				for (Map.Entry<Integer, Integer> entry : countMap.entrySet()) {
 					// Print the number and its count
