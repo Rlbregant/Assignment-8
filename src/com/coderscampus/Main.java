@@ -3,6 +3,7 @@ package com.coderscampus;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.StringJoiner;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CountDownLatch;
 
@@ -25,6 +26,7 @@ public class Main {
 			List<Thread> threads = new ArrayList<>();
 
 			try {
+				// Start a for loop with i starting at 0 and ending at 999
 				for (int i = 0; i < 1000; i++) {
 					Thread t = new Thread(() -> {
 						// Retrieve the list of numbers from the Assignment8 object
@@ -44,16 +46,24 @@ public class Main {
 					// Start the thread
 					t.start();
 				}
-
 				// Wait for all threads to complete
 				latch.await();
-
-				// Print the count of each number
-				// flush() is an attempt to remove the blank line #2016 output
-				System.out.flush();
+				// Initialize a variable i to keep track of the current iteration
+				int i = 0;
+				// Get the size of the countMap
+				int size = countMap.size();
 				for (Map.Entry<Integer, Integer> entry : countMap.entrySet()) {
-					// Print the number and its count
-					System.out.println(entry.getKey() + ": " + entry.getValue());
+					// If the current iteration is not the last one
+					if (i < size - 1) {
+						// Print the number and its count followed by a newline
+						System.out.println(entry.getKey() + ": " + entry.getValue());
+						// If the current iteration is the last one
+					} else {
+						// Print the number and its count without a newline
+						System.out.print(entry.getKey() + ": " + entry.getValue());
+					}
+					// Increment i for the next iteration
+					i++;
 				}
 				// Handle the exception
 			} catch (InterruptedException e) {
